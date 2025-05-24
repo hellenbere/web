@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ecuación Cuadrática Paso a Paso</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+    input, button { padding: 10px; margin: 5px 0; }
+    .resultado { background: #fff; padding: 15px; margin-top: 20px; border-left: 5px solid #4CAF50; }
+  </style>
+</head>
+<body>
+  <h2>Resolución de Ecuación Cuadrática Paso a Paso</h2>
+
+  <p><strong>Fórmula general:</strong></p>
+  <p><strong>x = (-b ± √(b² - 4ac)) / (2a)</strong></p>
+
+  <label>Coeficiente a:</label><br>
+  <input type="number" id="a" required><br>
+
+  <label>Coeficiente b:</label><br>
+  <input type="number" id="b" required><br>
+
+  <label>Coeficiente c:</label><br>
+  <input type="number" id="c" required><br><br>
+
+  <button onclick="resolver()">Resolver</button>
+
+  <div class="resultado" id="resultado" style="display:none;"></div>
+
+  <script>
+    function resolver() {
+      const a = parseFloat(document.getElementById("a").value);
+      const b = parseFloat(document.getElementById("b").value);
+      const c = parseFloat(document.getElementById("c").value);
+      const res = document.getElementById("resultado");
+
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        res.innerHTML = "<p><strong>Error:</strong> Ingresa todos los coeficientes.</p>";
+        res.style.display = "block";
+        return;
+      }
+
+      if (a === 0) {
+        res.innerHTML = "<p><strong>Error:</strong> El coeficiente a no puede ser cero.</p>";
+        res.style.display = "block";
+        return;
+      }
+
+      let output = `<h3>Resolviendo: ${a}x² + ${b}x + ${c} = 0</h3>`;
+
+      const discriminante = b*b - 4*a*c;
+      output += `<p>1️⃣ <strong>Discriminante:</strong> Δ = b² - 4ac = ${b}² - 4×${a}×${c} = ${discriminante}</p>`;
+
+      if (discriminante < 0) {
+        output += `<p>❌ Como el discriminante es negativo, no hay soluciones reales.</p>`;
+      } else {
+        const raiz = Math.sqrt(discriminante);
+        const x1 = (-b + raiz) / (2*a);
+        const x2 = (-b - raiz) / (2*a);
+
+        output += `<p>2️⃣ <strong>Raíz cuadrada del discriminante:</strong> √Δ = √${discriminante} = ${raiz.toFixed(4)}</p>`;
+        output += `<p>3️⃣ <strong>Aplicamos fórmula:</strong></p>`;
+        output += `<p>x = (-${b} ± ${raiz.toFixed(4)}) / (2×${a}) = (-${b} ± ${raiz.toFixed(4)}) / ${2*a}</p>`;
+        output += `<p>4️⃣ <strong>Soluciones:</strong></p>`;
+        output += `<p>x₁ = ${x1.toFixed(4)}</p>`;
+        output += `<p>x₂ = ${x2.toFixed(4)}</p>`;
+      }
+
+      res.innerHTML = output;
+      res.style.display = "block";
+    }
+  </script>
+</body>
+</html>
